@@ -1,5 +1,6 @@
 package it.brujo.json;
 
+import java.io.IOException;
 
 public class JSonNumber extends JSonValue {
 
@@ -40,9 +41,15 @@ public class JSonNumber extends JSonValue {
 		return this;
 	}
 
-	@Override
 	String writeValue() {
 		return value.toString();
+	}
+
+	@Override
+	int appendTo(Appendable out) throws IOException {
+		String s=writeValue();
+		out.append(s);
+		return s.length();
 	}
 	
 }

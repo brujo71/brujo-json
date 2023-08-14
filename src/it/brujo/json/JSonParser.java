@@ -3,6 +3,7 @@ package it.brujo.json;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.Map;
 
 public class JSonParser {
 
@@ -68,6 +69,33 @@ public class JSonParser {
 		return cons;
 	}
 	
+	private static final Map<Character,Character> parseEscapedChars=Map.of(
+			'\\','\\',
+			'r','\r',
+			'n','\n',
+			'f','\f',
+			't','\t',
+			'/','/',
+			'"','"',
+			'\'','\''
+		);
+	
+	private int parseExa() throws JSonParseEx,IOException {
+		char charsExa[]=new char[4];
+		for (int i=0;i<4;i++) {
+			next();
+			charsExa[i]=cur;
+		}
+		String strExa=String.valueOf(charsExa);
+		int valExa;
+		try {
+			valExa=Integer.parseInt(strExa, 16);
+		}
+		catch (Exception e) {
+			throw new JSonParseEx();
+		}
+		return valExa;
+	}
 	
 	private JSonString parseString() throws JSonParseEx,IOException {
 		StringBuilder nome=new StringBuilder(32);
@@ -78,36 +106,11 @@ public class JSonParser {
 		while (cur!='"') {
 			if (cur=='\\') {
 				next();
-				if (cur=='\\') 
-					nome.append('\\');
-				else if (cur=='r') 
-					nome.append('\r');
-				else if (cur=='n') 
-					nome.append('\n');
-				else if (cur=='f')
-					nome.append('\f');
-				else if (cur=='t')
-					nome.append('\t');
-				else if (cur=='/')
-					nome.append('/');
-				else if (cur=='"')
-					nome.append('"');
-				else if (cur=='\'')
-					nome.append('\'');
+				Character mappedChar=parseEscapedChars.get(cur);
+				if (mappedChar!=null) 
+					nome.append(mappedChar);
 				else if (cur=='u') {
-					char charsExa[]=new char[4];
-					for (int i=0;i<4;i++) {
-						next();
-						charsExa[i]=cur;
-					}
-					String strExa=String.valueOf(charsExa);
-					int valExa;
-					try {
-						valExa=Integer.parseInt(strExa, 16);
-					}
-					catch (Exception e) {
-						throw new JSonParseEx();
-					}
+					int valExa=parseExa();
 					nome.append((char)valExa);
 				}
 				else

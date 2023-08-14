@@ -1,5 +1,7 @@
 package it.brujo.json;
 
+import java.io.IOException;
+
 /** Questa classe deve essere mantenuta immutable o si deve cambiare myClone()
  * 
  * @author andrea
@@ -34,9 +36,15 @@ public final class JSonConst extends JSonValue {
 		return this;
 	}
 
-	@Override
 	String writeValue() {
 		return constant.intern();
+	}
+
+	@Override
+	int appendTo(Appendable out) throws IOException {
+		String s=writeValue();
+		out.append(s);
+		return s.length();
 	}
 	
 }

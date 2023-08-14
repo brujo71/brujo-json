@@ -78,7 +78,8 @@ public class JSonFormatter {
 				}
 			}
 			write(e, lineLen==0 && !first ? depth : 0);
-			lineLen+=alwaysNL ? 1 : ((JSonValue)e).writeValue().length()+2;
+			lineLen++;
+			//lineLen+=alwaysNL ? 1 : ((JSonValue)e).writeValue().length()+2;
 			first=false;
 		}
 		identation(1, 1);
@@ -109,7 +110,7 @@ public class JSonFormatter {
 	}
 	
 	private void writeVal(JSonValue el,int depth) throws IOException {
-		append.append(el.writeValue());
+		el.appendTo(append);
 	}
 	
 	public static FormatBuilder builder() {
@@ -159,42 +160,52 @@ public class JSonFormatter {
 		return sb.toString();
 	}
 	
-	static void escape(String s,Appendable out) throws IOException {
-		out.append("\"");
+	static int escape(String s,Appendable out) throws IOException {
+		int len=2;
+		out.append('"');
 		char c,cprec=' ';
 		for (int i=0;i<s.length();i++) {
 			c=s.charAt(i);
 			if (c=='"') {
 				out.append("\\\"");
+				len+=2;
 			}
 			else if (c=='\\') {
 				out.append("\\\\");
+				len+=2;
 			}
 			else if (c=='/' && cprec=='<') {
 				out.append("\\/");
+				len+=2;
 			}
 			else if (c=='\b') {
 				out.append("\\b");
+				len+=2;
 			}
 			else if (c=='\f') {
 				out.append("\\f");
+				len+=2;
 			}
 			else if (c=='\n') {
 				out.append("\\n");
+				len+=2;
 			}
 			else if (c=='\r') {
 				out.append("\\r");
+				len+=2;
 			}
 			else if (c=='\t') {
 				out.append("\\t");
+				len+=2;
 			}
 			else {
 				out.append(c);
+				len++;
 			}
 			cprec=c;
 		}
 		
-		out.append("\"");
-		
+		out.append('"');
+		return len;
 	}
 }

@@ -12,7 +12,7 @@ public class JSonLabel {
 
 	public int writeTo(Appendable out) throws IOException{
 		out.append('"');
-		out.append(value);
+		JSonFormatter.escape(value,out);
 		out.append('"');
 		return value.length()+2;
 	}
