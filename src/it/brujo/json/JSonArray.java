@@ -4,21 +4,39 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/** The class for a JSON array
+ * 
+ *
+ */
 public class JSonArray extends JSonElem implements Iterable<JSonElem> {
 
 	List<JSonElem> lst=new ArrayList<>();
 	
+	/**
+	 * 
+	 */
 	public JSonArray() {
 	}
+	
+	/**
+	 * 
+	 */
 	public JSonArray(Iterable<? extends JSonElem> lst) {
 		for (JSonElem e:lst)
 			add(e);
 	}
-
+	
+	/**
+	 * 
+	 * @return the numbre of elements in the array
+	 */
 	public int size() {
 		return lst.size();
 	}
 
+	/*
+	 * 
+	 */
 	public boolean isEmpty() {
 		return lst.isEmpty();
 	}

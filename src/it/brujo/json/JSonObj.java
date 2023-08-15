@@ -5,6 +5,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.function.Consumer;
 
+/** The class for a JSON object
+ * 
+ *
+ */
 public class JSonObj extends JSonElem  {
 
 	List<JSonEntry> content=new ArrayList<>();

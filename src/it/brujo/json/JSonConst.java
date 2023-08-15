@@ -2,20 +2,33 @@ package it.brujo.json;
 
 import java.io.IOException;
 
-/** Questa classe deve essere mantenuta immutable o si deve cambiare myClone()
+/** This class is not instantiable. There are only three instance.
+ *  
  * 
- * @author andrea
+ * 
  *
  */
 public final class JSonConst extends JSonValue {
 
 	private String constant;
-	public static final JSonConst False=new JSonConst("false");
-	public static final JSonConst True=new JSonConst("true");
-	public static final JSonConst Null=new JSonConst("null");
+	private boolean boolValue;
 	
-	JSonConst(String constant) {
+	/** The singletone immutable class for JSon false constant
+	 * 
+	 */
+	public static final JSonConst False=new JSonConst("false",false);
+	/** The singletone immutable class for JSon true constant
+	 * 
+	 */
+	public static final JSonConst True=new JSonConst("true",true);
+	/** The singletone immutable class for JSon null
+	 * 
+	 */
+	public static final JSonConst Null=new JSonConst("null",false);
+	
+	private JSonConst(String constant,boolean boolValue) {
 		this.constant=constant;
+		this.boolValue=boolValue;
 	}
 	
 	@Override
@@ -74,5 +87,11 @@ public final class JSonConst extends JSonValue {
 	public Double doubleValue() {
 		return null;
 	}
+
+	@Override
+	public boolean booleanValue() {
+		return boolValue;
+	}
+	
 	
 }

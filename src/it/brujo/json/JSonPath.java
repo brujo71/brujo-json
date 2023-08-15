@@ -3,28 +3,57 @@ package it.brujo.json;
 import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
-public class JSonMap {
+/** A class to query map all the JSON value in a hierarchical map.
+ * 
+ *  <code><pre>
+ *  { "a" : "aa",
+ *    "b" : {
+ * 	        "bx" : 1,
+ *          "by" : 2
+ * 			},
+ * 	  "c" : [ 10, 11, 12 ]	
+ *  } 
+ *  </pre></code>
+ *  is mapped to
+ *  <pre>
+ *  root: JSonObj [content.size=3]
+ *  root_a: aa
+ *  root_b: JSonObj [content.size=2]
+ *  root_b_bx: 1
+ *  root_b_by: 2
+ *  root_c: JSonArray [lst.size=3]
+ *  root_c_0: 10
+ *  root_c_1: 11
+ *  root_c_2: 12
+ *  root_c_size: 3
+ *  </pre>
+ * 
+ */
+public class JSonPath {
 
-	private final static char DEFAULT_KEY_DELIMITER='_';
-	private final static String DEFAULT_ROOT_NAME="root";
+	public final static char DEFAULT_KEY_DELIMITER='_';
+	public final static String DEFAULT_ROOT_NAME="root";
+	public final static String DEFAULT_ARRAY_SIZE_LABEL="size";
 	
 	private char keyDelimiter=DEFAULT_KEY_DELIMITER;
 	private char arrayDelimiter=DEFAULT_KEY_DELIMITER;
 	private String rootName=DEFAULT_ROOT_NAME;
+	private String arraySizeLabel=DEFAULT_ARRAY_SIZE_LABEL;
 			
 	
 	private boolean enrollArrays=false;
 	
 	private Map<String,JSonElem> map=null;
 	
-	private JSonMap() {} //use builder
+	private JSonPath() {} //use builder
 	
 	private void map(JSonElem json) {
-		map=new HashMap<String, JSonElem>();
+		map=new TreeMap<String, JSonElem>();
 		mapInner(rootName, json);
 	}
 	
@@ -37,11 +66,11 @@ public class JSonMap {
 		}
 		else if (enrollArrays && json instanceof JSonArray ja) {
 			int count=0;
+			mapInner(key+arrayDelimiter+arraySizeLabel, new JSonNumber(ja.size()));
 			for (JSonElem e:ja) {
 				mapInner(key+arrayDelimiter+count++, e);
 			}
 		}
-		
 	}
 
 	public JSonValue getValue(String k) {
@@ -68,13 +97,18 @@ public class JSonMap {
 		});
 	}
 	
+	public void dumpAll(PrintStream out) {
+		map.forEach((k,v) -> {
+			out.println(k+": "+((v instanceof JSonValue vv) ? vv.stringValue() :  v));
+		});
+	}
 	
 	public static MapBuilder builder() {
 		return new MapBuilder();
 	}
 	
 	public static class MapBuilder {
-		private JSonMap buildingMap=new JSonMap();
+		private JSonPath buildingMap=new JSonPath();
 		
 		private MapBuilder() {}
 		
@@ -95,7 +129,7 @@ public class JSonMap {
 			return this;
 		}
 		
-		public JSonMap build(JSonElem json) {
+		public JSonPath build(JSonElem json) {
 			buildingMap.map(json);
 			return buildingMap;
 		}

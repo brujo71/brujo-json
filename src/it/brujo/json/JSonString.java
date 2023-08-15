@@ -67,5 +67,16 @@ public class JSonString extends JSonValue {
 		}
 		return null;
 	}
+
+	@Override
+	public boolean booleanValue() {
+		if (value.length()==0)
+			return false;
+		if (value.equalsIgnoreCase(JSonConst.False.stringValue()))
+			return false;
+		return true;
+	}
+	
+	
 	
 }
