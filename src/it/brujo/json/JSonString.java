@@ -11,7 +11,6 @@ public class JSonString extends JSonValue {
 		this.value=value;
 	}
 	
-	@Override
 	public String stringValue() {
 		return value;
 	}
@@ -37,6 +36,36 @@ public class JSonString extends JSonValue {
 	@Override
 	int appendTo(Appendable out) throws IOException {
 		return JSonFormatter.escape(value,out);
+	}
+
+	@Override
+	public Integer intValue() {
+		try {
+			return Integer.parseInt(value);
+		}
+		catch (NumberFormatException e) {
+		}
+		return null;
+	}
+
+	@Override
+	public Long longValue() {
+		try {
+			return Long.parseLong(value);
+		}
+		catch (NumberFormatException e) {
+		}
+		return null;
+	}
+	
+	@Override
+	public Double doubleValue() {
+		try {
+			return Double.parseDouble(value);
+		}
+		catch (NumberFormatException e) {
+		}
+		return null;
 	}
 	
 }

@@ -10,5 +10,9 @@ import java.io.IOException;
 public abstract class JSonValue extends JSonElem {
 	
 	abstract int appendTo(Appendable out) throws IOException;
+	public abstract String stringValue();
+	public abstract Integer intValue();
+	public abstract Long longValue();
+	public abstract Double doubleValue();
 
 }

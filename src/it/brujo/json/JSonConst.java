@@ -46,5 +46,33 @@ public final class JSonConst extends JSonValue {
 		out.append(s);
 		return s.length();
 	}
+
+	@Override
+	public String stringValue() {
+		return constant.intern();
+	}
+
+	@Override
+	public Integer intValue() {
+		if (this==False)
+			return 0;
+		else if (this==True)
+			return 1;
+		return null;
+	}
+
+	@Override
+	public Long longValue() {
+		if (this==False)
+			return 0L;
+		else if (this==True)
+			return 1L;
+		return null;
+	}
+
+	@Override
+	public Double doubleValue() {
+		return null;
+	}
 	
 }

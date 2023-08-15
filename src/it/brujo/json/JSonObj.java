@@ -3,8 +3,9 @@ package it.brujo.json;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Consumer;
 
-public class JSonObj extends JSonElem implements Iterable<JSonEntry> {
+public class JSonObj extends JSonElem  {
 
 	List<JSonEntry> content=new ArrayList<>();
 	
@@ -83,6 +84,11 @@ public class JSonObj extends JSonElem implements Iterable<JSonEntry> {
 		return null;
 	}
 	
+
+	List<JSonEntry> list() {
+		return content;
+	}
+	
 	@Override
 	public String toString() {
 		return "JSonObj [content.size=" + content.size() + "]";
@@ -99,6 +105,8 @@ public class JSonObj extends JSonElem implements Iterable<JSonEntry> {
 		return content.iterator();
 	}
 	
-	
+	void forEachEntry(Consumer<JSonEntry> cons) {
+		content.forEach(cons);
+	}
 	
 }

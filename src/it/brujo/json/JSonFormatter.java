@@ -8,7 +8,6 @@ public class JSonFormatter {
 	private FormatBuilder conf;
 	private Appendable append;
 	
-	
 	private JSonFormatter(FormatBuilder conf) {
 		this.conf = conf;
 	}
@@ -98,7 +97,7 @@ public class JSonFormatter {
 		append.append("{");
 		identation(1, 1);
 		boolean first=true;
-		for (JSonEntry nv: el) {
+		for (JSonEntry nv: el.list()) {
 			if (!first) {
 				append.append(",\n");
 			}

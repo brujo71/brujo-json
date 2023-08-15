@@ -25,21 +25,6 @@ public class JSonExplorer {
 	}
 	
 	
-	/**ritorna il valore della proprietà di un oggetto quanto si sa anticipatamente si tratta di una stringa
-	 * 
-	 * @param jsObj un oggetto json
-	 * @param name nome della proprietà a cui è associato il valore atteso
-	 * @return The value as String
-	 */
-	public static String getObjValueStr(JSonObj jsObj,String name) {
-		JSonElem elRes=jsObj.getElem(name);
-		if (elRes==null)
-			return null;
-		if (elRes instanceof JSonString)
-			return ((JSonString)elRes).value();
-		return elRes.stringValue();
-	//	throw new RuntimeException("unexpected type "+elRes.getClass().getSimpleName());
-	}
 	
 	/**ritorna il valore della proprietà di un oggetto quanto si sa anticipatamente si tratta di un array
 	 * 

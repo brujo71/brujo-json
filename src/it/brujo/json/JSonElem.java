@@ -10,45 +10,6 @@ public abstract class JSonElem {
 	
 	abstract JSonElem myClone();
 	
-	public String stringValue() {
-		return toString();
-	}
-	
-	/**This method is overridden in JSonNumber
-	 * 
-	 * @return
-	 */
-	public Integer intValue() {
-		if (this==JSonConst.Null) {
-			return null;
-		}
-		else {
-			try {
-				return Integer.parseInt(stringValue());
-			}
-			catch (Exception e) {
-				return null;
-			}
-		}
-	}
-
-	/**This method is overridden in JSonNumber
-	 * 
-	 * @return
-	 */
-	public Long longValue() {
-		if (this==JSonConst.Null) {
-			return null;
-		}
-		else {
-			try {
-				return Long.parseLong(stringValue());
-			}
-			catch (Exception e) {
-				return null;
-			}
-		}
-	}
 
 	public Boolean toBoolValue() {
 		if (this==JSonConst.Null) {
@@ -84,6 +45,10 @@ public abstract class JSonElem {
 		return this instanceof JSonValue;
 	}
 	
+	public JSonValue asValue() {
+		return (JSonValue) this;
+	}
+
 	public boolean isObject() {
 		return this instanceof JSonObj;
 	}

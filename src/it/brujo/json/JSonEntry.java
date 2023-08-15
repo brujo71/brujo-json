@@ -5,7 +5,7 @@ package it.brujo.json;
  * 
  * 
  */
-public class JSonEntry {
+class JSonEntry {
 
 	private JSonLabel label;
 	private JSonElem value;

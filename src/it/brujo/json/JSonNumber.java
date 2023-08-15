@@ -20,11 +20,10 @@ public class JSonNumber extends JSonValue {
 		return value;
 	}
 
-	public double doubleValue() {
+	@Override
+	public Double doubleValue() {
 		return value.doubleValue();
 	}
-	
-	
 
 	@Override
 	public Integer intValue() {
@@ -50,6 +49,11 @@ public class JSonNumber extends JSonValue {
 		String s=writeValue();
 		out.append(s);
 		return s.length();
+	}
+
+	@Override
+	public String stringValue() {
+		return writeValue();
 	}
 	
 }
