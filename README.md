@@ -1,5 +1,5 @@
 # The Java brujo-json library
-This Java [JSON](https://json.org] library is a full-featured, production-ready library for parsing, querying, building, and manipulating JSON data in Java. It is really fast, small, and has no dependencies.
+This Java [JSON](https://json.org) library is a full-featured, production-ready library for parsing, querying, building, and manipulating JSON data in Java. It is really fast, small, and has no dependencies.
 ## Why another JSON Java library?
 There are many JSON Java libraries available, so why choose this one? Here are some of the reasons:
 - It is full-featured. The library can parse, query, build, and manipulate JSON data in any way you need.
