@@ -1,4 +1,4 @@
-package it.brujo.json.examples;
+package it.brujo.jsonexamples;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
