@@ -11,6 +11,9 @@ There are many JSON Java libraries available, so why choose this one? Here are s
 This library is for anyone who wants to use a JSON library that does exactly what it is claimed to do. It is ideal for people who are learning about JSON or who want to customize the library to their own needs.
 ## Limits
 It does not support SAX style parsing. However, it will be added in the future.
+## Requirements
+To compile the code Java 11+ is required.
+## Documentation
 
 
 
