@@ -259,17 +259,17 @@ public class JSonBuilder {
 		if (value==null) {
 			return nul();
 		}
-		else if (value instanceof Boolean b) {
-			return value(b); 
+		else if (value instanceof Boolean) {
+			return value((Boolean)value); 
 		}
-		else if (value instanceof Number n) {
-			return value(n);
+		else if (value instanceof Number) {
+			return value((Number)value);
 		}
-		else if (value instanceof String s) {
-			return value(s);
+		else if (value instanceof String) {
+			return value((String)value);
 		}
-		else if (value instanceof JSonElem e) {
-			return e;
+		else if (value instanceof JSonElem) {
+			return (JSonElem)value;
 		}
 		else {
 			throw new IllegalArgumentException("unsupproted class "+value.getClass().getName());

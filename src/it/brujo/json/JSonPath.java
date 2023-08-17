@@ -68,15 +68,15 @@ public class JSonPath {
 	
 	private void mapInner(String key,JSonElem json) {
 		map.put(key,json);
-		if (json instanceof JSonObj jo) {
-			for (JSonEntry e:jo.list()) {
+		if (json instanceof JSonObj) {
+			for (JSonEntry e:((JSonObj)json).list()) {
 				mapInner(key+keyDelimiter+e.label().value(), e.value());
 			}
 		}
-		else if (enrollArrays && json instanceof JSonArray ja) {
+		else if (enrollArrays && json instanceof JSonArray) {
 			int count=0;
-			mapInner(key+arrayDelimiter+arraySizeLabel, new JSonNumber(ja.size()));
-			for (JSonElem e:ja) {
+			mapInner(key+arrayDelimiter+arraySizeLabel, new JSonNumber(((JSonArray)json).size()));
+			for (JSonElem e:((JSonArray)json)) {
 				mapInner(key+arrayDelimiter+count++, e);
 			}
 		}
@@ -122,8 +122,8 @@ public class JSonPath {
 	 */
 	public void dumpLeafs(PrintStream out) {
 		map.forEach((k,v) -> {
-			if (v instanceof JSonValue vv) {
-				out.println(k+": "+vv.stringValue());
+			if (v instanceof JSonValue) {
+				out.println(k+": "+((JSonValue)v).stringValue());
 			}
 		});
 	}
@@ -134,7 +134,7 @@ public class JSonPath {
 	 */
 	public void dumpAll(PrintStream out) {
 		map.forEach((k,v) -> {
-			out.println(k+": "+((v instanceof JSonValue vv) ? vv.stringValue() :  v));
+			out.println(k+": "+((v instanceof JSonValue) ? ((JSonValue)v).stringValue() :  v));
 		});
 	}
 	

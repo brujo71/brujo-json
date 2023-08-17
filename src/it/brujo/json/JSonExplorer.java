@@ -28,8 +28,8 @@ public class JSonExplorer {
 		if (el instanceof JSonObj) {
 			cons.accept((JSonObj)el);
 		}
-		else if (el instanceof JSonArray ar) {
-			ar.forEach(e -> forEachObj(e,cons));
+		else if (el instanceof JSonArray) {
+			((JSonArray)el).forEach(e -> forEachObj(e,cons));
 		}
 		else {
 			throw new RuntimeException("unsupported class "+el.getClass().getName());
