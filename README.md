@@ -11,7 +11,7 @@ Because:<br>
 2. It is ideal to people who wants to learn
 3. It is ideal for customization becose the code is really small and stright forward
 ## Limits
-No SAX style parser (but it will be developed in future)
+No SAX style parser (but it will be developed in future).<br>
 No other functions than JSON e.g. no XML convertion.
 ## Plans
 
