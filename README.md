@@ -1,4 +1,4 @@
-# brujo-json - Another Java JSON librery
+# brujo-json - Another Java JSON library
 ## Why another JSON Java library?
 Because:<br>
 1. It small and self contained (without dependencies)
