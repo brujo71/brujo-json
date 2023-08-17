@@ -2,15 +2,27 @@ package it.brujo.json;
 
 import java.io.IOException;
 
+/** It rapresents a String value
+ * 
+ *
+ */
 public class JSonString extends JSonValue {
 
 	private String value;
+	
+	/**
+	 * 
+	 * @param value the string
+	 */
 	public JSonString(String value) {
 		if (value==null)
 			throw new NullPointerException();
 		this.value=value;
 	}
 	
+	/** the content
+	 * 
+	 */
 	public String stringValue() {
 		return value;
 	}
@@ -20,7 +32,7 @@ public class JSonString extends JSonValue {
 		return value;
 	}
 	
-	public String value() {
+	String value() {
 		return value;
 	}
 
@@ -76,7 +88,5 @@ public class JSonString extends JSonValue {
 			return false;
 		return true;
 	}
-	
-	
 	
 }

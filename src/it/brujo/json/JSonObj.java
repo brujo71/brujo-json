@@ -11,45 +11,84 @@ import java.util.function.Consumer;
  */
 public class JSonObj extends JSonElem  {
 
-	List<JSonEntry> content=new ArrayList<>();
+	private List<JSonEntry> content=new ArrayList<>();
 	
-	protected JSonObj addInner(String name,JSonElem value) {
+	JSonObj addInner(String name,JSonElem value) {
 		content.add(new JSonEntry(new JSonLabel(name), value));
 		return this;
 	}
 
+	/**
+	 * 
+	 * @return the number of entries in the object
+	 */
 	public int size() {
 		return content.size();
 	}
 
+	/**
+	 * 
+	 * @return <code>this</code>
+	 */
 	public JSonObj clear() {
 		content.clear();
 		return this;
 	}
 
-	public JSonObj add(JSonEntry nv) {
+	JSonObj add(JSonEntry nv) {
 		content.add(nv);
 		return this;
 	}
 	
+	/**The JSON <a href="json.org">specifications</a> allow multiple values for the same keys.<br>
+	 * E.g.<br>
+	 * <pre>
+	 * { "a" : 1, "a" , 2}
+	 * </pre>
+	 * This implementations allow this behavior. Notice that in Javascript only the last key is considered.
+	 * 
+	 * 
+	 * @see #setValue(String,JSonElem)
+	 * @param name JSON name
+	 * @param value any JSON value 
+	 * @return <code>this</code>
+	 */
 	public JSonObj add(String name, JSonElem value) {
 		return addInner(name, value);
 	}
-	
-	public JSonObj add(String name, String value) {
-		return addInner(name, new JSonString(value));
-	}
-	
-	public JSonObj add(String name, Number value) {
-		return addInner(name, new JSonNumber(value));
-	}
-	
-	public JSonObj add(String name, Boolean value) {
-		if (value==null)
-			return addInner(name, JSonConst.Null);
-		return addInner(name, value ?  JSonConst.True : JSonConst.False );
+
+	/**
+	 * 
+	 * @see #setValue(String,JSonElem)
+	 * @param name JSON name
+	 * @param value any Java object that can be converted to JSON (e.g. String, Number)
+	 * @return <code>this</code>
+	 */
+	public JSonObj add(String name, Object value) {
+		return addInner(name, JSonBuilder.builder().elem(value));
 	}
 
+//	public JSonObj add(String name, String value) {
+//		return addInner(name, new JSonString(value));
+//	}
+//	
+//	public JSonObj add(String name, Number value) {
+//		return addInner(name, new JSonNumber(value));
+//	}
+//	
+//	public JSonObj add(String name, Boolean value) {
+//		if (value==null)
+//			return addInner(name, JSonConst.Null);
+//		return addInner(name, value ?  JSonConst.True : JSonConst.False );
+//	}
+
+	/**
+	 * 
+	 * @see #add(String,Object)
+	 * @param name JSON name
+	 * @param value any Java object that can be converted to JSON (e.g. String, Number)
+	 * @return <code>this</code>
+	 */
 	public JSonObj setValue(String name, JSonElem value) {
 		boolean changed=false;
 		for (JSonEntry nv: content) {
@@ -65,6 +104,10 @@ public class JSonObj extends JSonElem  {
 		return this;
 	}
 
+	/**Remove all accuracies of the name
+	 * 
+	 * @param name the JSON name
+	 */
 	public void remove(String name) {
 		Iterator<JSonEntry> iter=content.iterator();
 		while (iter.hasNext()) {
@@ -79,7 +122,6 @@ public class JSonObj extends JSonElem  {
 	 * @param name {@code String}
 	 * @return {@code JSonElem} {@code JSonElem}
 	 */
-	
 	public JSonElem getElem(String name) {
 		for (int i = content.size() - 1; i >= 0; i--) {
 			if (content.get(i).label().isEqual(name))
@@ -105,7 +147,7 @@ public class JSonObj extends JSonElem  {
 		return jsclone;
 	}
 
-	public Iterator<JSonEntry> iterator() {
+	Iterator<JSonEntry> iterator() {
 		return content.iterator();
 	}
 	
@@ -113,4 +155,12 @@ public class JSonObj extends JSonElem  {
 		content.forEach(cons);
 	}
 	
+	/**
+	 * 
+	 * @param from the obj from which to merge data
+	 * @return <code>this</code>
+	 */
+	public JSonObj merge(JSonObj from) {
+		return JSonBuilder.builder().objMerge(this, from);
+	}
 }

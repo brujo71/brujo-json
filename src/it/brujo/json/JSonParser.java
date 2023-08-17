@@ -5,6 +5,10 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.util.Map;
 
+/** The class for JSON parsing
+ * 
+ *
+ */
 public class JSonParser {
 
 	private char cur;
@@ -219,17 +223,18 @@ public class JSonParser {
 		
 	}
 	
-	private JSonElem parseInner() throws IOException {
-		try {
-			skip();
-			return parseElem();
-		}
-		catch (JSonParseEx e) {
-			throw new RuntimeException(e);
-		}
+	private JSonElem parseInner() throws JSonParseEx,IOException {
+		skip();
+		return parseElem();
 	}
 	
-	public static JSonElem parse(String source) {
+	/**
+	 * 
+	 * @param source the string to parse
+	 * @return an internal representation of the JSON
+	 * @throws JSonParseEx if parsing error
+	 */
+	public static JSonElem parse(String source) throws JSonParseEx {
 		try {
 			return parse(new StringReader(source));
 		}
@@ -238,7 +243,14 @@ public class JSonParser {
 		}
 	}
 
-	public static JSonElem parse(Reader source) throws IOException {
+	/**
+	 * 
+	 * @param source the JSON to parse
+	 * @return an internal representation of the JSON
+	 * @throws JSonParseEx if parsing error
+	 * @throws IOException from underlying stream
+	 */
+	public static JSonElem parse(Reader source) throws JSonParseEx,IOException {
 		JSonParser jp=new JSonParser(source);
 		try {
 			return jp.parseInner();
@@ -248,10 +260,17 @@ public class JSonParser {
 		}
 	}
 
+	/** This exception is thrown both in case of syntax problems and internal errors.
+	 * 
+	 *
+	 */
 	public static class JSonParseEx extends Exception {
 
 		private static final long serialVersionUID = 1L;
 
+		/** Empty constructor
+		 * 
+		 */
 		public JSonParseEx() {
 			super();
 		}

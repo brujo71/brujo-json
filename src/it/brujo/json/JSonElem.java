@@ -1,6 +1,5 @@
 package it.brujo.json;
 
-import java.util.function.Consumer;
 
 /** The base class for each JSON element
  * 
@@ -8,7 +7,7 @@ import java.util.function.Consumer;
  */
 public abstract class JSonElem {
 
-	protected JSonElem() {
+	JSonElem() {
 
 	}
 	
@@ -33,38 +32,62 @@ public abstract class JSonElem {
 //		}
 //	}
 
-	public void forEachObj(Consumer<JSonObj> cons) {
-		if (this instanceof JSonObj) {
-			cons.accept((JSonObj)this);
-		}
-		else if (this instanceof JSonArray) {
-			((JSonArray)this).forEach(e -> e.forEachObj(cons));
-		}
-		else {
-			throw new RuntimeException("unsupported class "+this.getClass().getName());
-		}
-	}
+//	public void forEachObj(Consumer<JSonObj> cons) {
+//		if (this instanceof JSonObj) {
+//			cons.accept((JSonObj)this);
+//		}
+//		else if (this instanceof JSonArray) {
+//			((JSonArray)this).forEach(e -> e.forEachObj(cons));
+//		}
+//		else {
+//			throw new RuntimeException("unsupported class "+this.getClass().getName());
+//		}
+//	}
 	
+	/**
+	 * 
+	 * @return true if instanceof {@link JSonValue}
+	 */
 	public boolean isValue() {
 		return this instanceof JSonValue;
 	}
 	
+	/**
+	 * 
+	 * @return this object casted to {@link JSonValue}
+	 */
 	public JSonValue asValue() {
 		return (JSonValue) this;
 	}
 
+	/**
+	 * 
+	 * @return true if instanceof {@link JSonObj}
+	 */
 	public boolean isObject() {
 		return this instanceof JSonObj;
 	}
 	
+	/**
+	 * 
+	 * @return this object casted to {@link JSonObj}
+	 */
 	public JSonObj asObj() {
 		return (JSonObj) this;
 	}
 
+	/**
+	 * 
+	 * @return true if instanceof {@link JSonArray}
+	 */
 	public boolean isArray() {
 		return this instanceof JSonArray;
 	}
 	
+	/**
+	 * 
+	 * @return this object casted to {@link JSonArray}
+	 */
 	public JSonArray asArray() {
 		return (JSonArray) this;
 	}

@@ -2,7 +2,7 @@ package it.brujo.json;
 
 import java.io.IOException;
 
-/** This class is not instantiable. There are only three instance.
+/** This class is not instantiable. There are only three singleton immutable instance.
  *  
  * 
  * 
@@ -13,15 +13,15 @@ public final class JSonConst extends JSonValue {
 	private String constant;
 	private boolean boolValue;
 	
-	/** The singletone immutable class for JSon false constant
+	/** The singleton immutable class for JSon false constant
 	 * 
 	 */
 	public static final JSonConst False=new JSonConst("false",false);
-	/** The singletone immutable class for JSon true constant
+	/** The singleton immutable class for JSon true constant
 	 * 
 	 */
 	public static final JSonConst True=new JSonConst("true",true);
-	/** The singletone immutable class for JSon null
+	/** The singleton immutable class for JSon null
 	 * 
 	 */
 	public static final JSonConst Null=new JSonConst("null",false);

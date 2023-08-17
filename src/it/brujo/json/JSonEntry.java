@@ -10,15 +10,28 @@ class JSonEntry {
 	private JSonLabel label;
 	private JSonElem value;
 	
+	/**
+	 * 
+	 * @param label
+	 * @param value
+	 */
 	public JSonEntry(JSonLabel label, JSonElem value) {
 		this.label = label;
 		this.value = value;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public JSonLabel label() {
 		return label;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public JSonElem value() {
 		return value;
 	}

@@ -2,7 +2,10 @@ package it.brujo.json;
 
 import java.io.IOException;
 
-
+/** Trasform an internal rapresentation to a JSON text.
+ * 
+ *
+ */
 public class JSonFormatter {
 
 	private FormatBuilder conf;
@@ -11,7 +14,13 @@ public class JSonFormatter {
 	private JSonFormatter(FormatBuilder conf) {
 		this.conf = conf;
 	}
-	
+
+	/**An utility method to obtain a JSON as String
+	 * 
+	 * @see #append
+	 * @param json the element to write
+	 * @return the JSON 
+	 */
 	public String writeToString(JSonElem json) {
 		StringBuilder sb=new StringBuilder();
 		append=sb;
@@ -23,6 +32,12 @@ public class JSonFormatter {
 		return sb.toString();
 	}
 
+	/**
+	 * 
+	 * @param json the JSON
+	 * @param out e.g. {@link StringBuilder} or {@link java.io.FileWriter}
+	 * @throws IOException from underlying stream
+	 */
 	public void append(JSonElem json,Appendable out) throws IOException {
 		append=out;
 		write(json, 0);
@@ -46,6 +61,7 @@ public class JSonFormatter {
 	private void identation(int depth) throws IOException {
 		identation(depth, 0);
 	}
+	
 	private void identation(int depth,int previousCharsNb) throws IOException {
 		if (conf.useTabs) {
 			append.append("\t".repeat(depth*conf.identationNb));
@@ -112,10 +128,23 @@ public class JSonFormatter {
 		el.appendTo(append);
 	}
 	
+	/** Start from here.<br>
+	 * <code><pre>
+	 * JSonFormatter formatter=JSonFormatter.builder()
+	 * 			.withTabs(false)
+	 * 			.build();
+	 * </pre></code>
+	 * 
+	 * @return a cofiguration object
+	 */
 	public static FormatBuilder builder() {
 		return new FormatBuilder();
 	}
 	
+	/** The configuration utility for the Formatter
+	 * 
+	 *
+	 */
 	public static class FormatBuilder {
 		
 		private boolean useTabs=false;
@@ -123,24 +152,47 @@ public class JSonFormatter {
 		
 		private FormatBuilder() {}
 		
+		/**
+		 * 
+		 * @return the fromatter
+		 */
 		public JSonFormatter build() {
 			return new JSonFormatter(this);
 		}
 		
+		/**Configure tabs vs. spaces
+		 * 
+		 * @param useTabs true for tabs
+		 * @return <code>this</code>
+		 */
 		public FormatBuilder withTabs(boolean useTabs) {
 			this.useTabs=useTabs;
 			return this;
 		}
 		
+		/**Define how many indentation characters are used. Use {@link #withTabs} to
+		 * configure tabs vs. spaces.
+		 * 
+		 * @param identationNb how many indentation characters should be used
+		 * @return <code>this</code>
+		 */
 		public FormatBuilder withIdentationNb(int identationNb) {
 			this.identationNb=identationNb;
 			return this;
 		}
 
+		/**
+		 * 
+		 * @return true if tabs are used instead of spaces
+		 */
 		public boolean isUseTabs() {
 			return useTabs;
 		}
 
+		/**
+		 * 
+		 * @return the number of indentation characters
+		 */
 		public int getIdentationNb() {
 			return identationNb;
 		}

@@ -24,7 +24,17 @@ public class JSonExplorer {
 		return res.o;
 	}
 	
-	
+	public static void forEachObj(JSonElem el, Consumer<JSonObj> cons) {
+		if (el instanceof JSonObj) {
+			cons.accept((JSonObj)el);
+		}
+		else if (el instanceof JSonArray ar) {
+			ar.forEach(e -> forEachObj(e,cons));
+		}
+		else {
+			throw new RuntimeException("unsupported class "+el.getClass().getName());
+		}
+	}
 	
 	/**ritorna il valore della proprietà di un oggetto quanto si sa anticipatamente si tratta di un array
 	 * 
@@ -104,7 +114,7 @@ public class JSonExplorer {
 		else if (elem instanceof JSonObj) {
 			if (elemCons!=null) elemCons.accept(elem);
 			JSonObj jobj=(JSonObj)elem;
-			jobj.content.forEach(nv -> inspectinner(nv, elemCons, nvCons,includeValues));
+			jobj.forEachEntry(nv -> inspectinner(nv, elemCons, nvCons,includeValues));
 		}
 		else if (includeValues) {
 			if (elemCons!=null) elemCons.accept(elem);

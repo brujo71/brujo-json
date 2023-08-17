@@ -1,6 +1,7 @@
 package it.brujo.json;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /** This class represents a JSON numeric value
  * 
@@ -9,10 +10,13 @@ import java.io.IOException;
 public class JSonNumber extends JSonValue {
 
 	private Number value;
+	
+	/**
+	 * 
+	 * @param value the represented number
+	 */
 	public JSonNumber(Number value) {
-		if (value==null)
-			throw new NullPointerException();
-		this.value=value;
+		this.value=Objects.requireNonNull(value) ;
 	}
 
 	@Override
@@ -20,10 +24,17 @@ public class JSonNumber extends JSonValue {
 		return value==null ? "null" : value.toString() ;
 	}
 
+	/**
+	 * 
+	 * @return the represented number
+	 */
 	public Number value() {
 		return value;
 	}
 
+	/** {@inheritDoc}
+	 * 
+	 */
 	@Override
 	public Double doubleValue() {
 		return value.doubleValue();

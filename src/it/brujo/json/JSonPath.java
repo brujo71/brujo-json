@@ -1,7 +1,6 @@
 package it.brujo.json;
 
 import java.io.PrintStream;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.BiConsumer;
@@ -36,8 +35,18 @@ import java.util.regex.Pattern;
  */
 public class JSonPath {
 
+	/**
+	 * An uncommon choice. The '_' (underscore) is neutral in RegExp {@link java.util.regex.Pattern}
+	 * Can be configured by {@link  MapBuilder#withKeyDelimiter}
+	 */
 	public final static char DEFAULT_KEY_DELIMITER='_';
+	/**
+	 * 
+	 */
 	public final static String DEFAULT_ROOT_NAME="root";
+	/**
+	 * 
+	 */
 	public final static String DEFAULT_ARRAY_SIZE_LABEL="size";
 	
 	private char keyDelimiter=DEFAULT_KEY_DELIMITER;
@@ -73,14 +82,32 @@ public class JSonPath {
 		}
 	}
 
-	public JSonValue getValue(String k) {
-		return (JSonValue)map.get(k);
+	//TODO improve javadoc 
+	/**
+	 * 
+	 * @param key a full key (e.g. root_a_b)
+	 * @return the value
+	 */
+	public JSonValue getValue(String key) {
+		return (JSonValue)map.get(key);
 	}
 	
-	public JSonElem get(String k) {
-		return map.get(k);
+	//TODO improve javadoc 
+	/**
+	 * 
+	 * @param key a full key (e.g. root_a_b)
+	 * @return the element
+	 */
+	public JSonElem get(String key) {
+		return map.get(key);
 	}
 	
+	//TODO improve javadoc 
+	/**
+	 * 
+	 * @param keyRegEx a regular expression for matching the keys
+	 * @param cons a {@link java.util.functions.BiConsumer} as callback function
+	 */
 	public void filter(String keyRegEx,BiConsumer<String,JSonElem> cons) {
 		Predicate<String> p= Pattern.compile(keyRegEx).asPredicate();
 		map.forEach((k,v)-> {
@@ -89,6 +116,10 @@ public class JSonPath {
 		});
 	}
 	
+	/**
+	 * 
+	 * @param out e.g. {@link System#out}
+	 */
 	public void dumpLeafs(PrintStream out) {
 		map.forEach((k,v) -> {
 			if (v instanceof JSonValue vv) {
@@ -97,38 +128,75 @@ public class JSonPath {
 		});
 	}
 	
+	/**
+	 * 
+	 * @param out e.g. {@link System#out}
+	 */
 	public void dumpAll(PrintStream out) {
 		map.forEach((k,v) -> {
 			out.println(k+": "+((v instanceof JSonValue vv) ? vv.stringValue() :  v));
 		});
 	}
 	
+	/**Start from here. With {#link MapBuilder} you can set varios options and you can obtain
+	 * a {@link JSonPath} instance invoking {@link MapBuilder#build(JSonElem)} 
+	 * 
+	 * @return a builder
+	 */
 	public static MapBuilder builder() {
 		return new MapBuilder();
 	}
 	
+	/** the configuration class
+	 * 
+	 *
+	 */
 	public static class MapBuilder {
 		private JSonPath buildingMap=new JSonPath();
 		
 		private MapBuilder() {}
 		
+		/**
+		 * 
+		 * @param enrollArrays (default true) 
+		 * @return <code>this</code>
+		 */
 		public MapBuilder withEnrollArrays(boolean enrollArrays) {
 			buildingMap.enrollArrays=enrollArrays;
 			return this;
 		}
+		/**
+		 * 
+		 * @param delimiter an alternative delimiter (e.g. '.')
+		 * @return <code>this</code>
+		 */
 		public MapBuilder withKeyDelimiter(char delimiter) {
 			buildingMap.keyDelimiter=delimiter;
 			return this;
 		}
+		/**
+		 * 
+		 * @param delimiter an alternative delimiter (e.g. '.')
+		 * @return <code>this</code>
+		 */
 		public MapBuilder withArrayDelimiter(char delimiter) {
 			buildingMap.arrayDelimiter=delimiter;
 			return this;
 		}
+		/**
+		 * 
+		 * @param rootName the alternative value for main element
+		 * @return <code>this</code>
+		 */
 		public MapBuilder withRootName(String rootName) {
 			buildingMap.rootName=rootName;
 			return this;
 		}
-		
+		/**Create a {@link JSonPath} object
+		 * 
+		 * @param json create a {@link JSonPath} based on this JSON element
+		 * @return <code>this</code>
+		 */
 		public JSonPath build(JSonElem json) {
 			buildingMap.map(json);
 			return buildingMap;
