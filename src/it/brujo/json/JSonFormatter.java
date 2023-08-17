@@ -141,6 +141,10 @@ public class JSonFormatter {
 		return new FormatBuilder();
 	}
 	
+	public static JSonFormatter defaultFormatter() {
+		return builder().build();
+	}
+	
 	/** The configuration utility for the Formatter
 	 * 
 	 *
