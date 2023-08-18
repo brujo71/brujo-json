@@ -55,7 +55,7 @@ public class JSonPath {
 	private String arraySizeLabel=DEFAULT_ARRAY_SIZE_LABEL;
 			
 	
-	private boolean enrollArrays=false;
+	private boolean enrollArrays=true;
 	
 	private Map<String,JSonElem> map=null;
 	

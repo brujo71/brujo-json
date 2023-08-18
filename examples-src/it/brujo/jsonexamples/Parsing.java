@@ -36,15 +36,6 @@ public class Parsing {
 		p.parsePerformance();
 	}
 
-	private String loadJSonResource(String fileName) {
-		URL url= getClass().getResource(fileName);
-		try {
-			return new String(Files.readAllBytes(Paths.get(url.toURI())),StandardCharsets.UTF_8);
-		} catch (IOException | URISyntaxException e1) {
-			e1.printStackTrace();
-			return null;
-		}
-	}
 	
 	private InputStream resourceIS(String fileName) throws FileNotFoundException, URISyntaxException {
 		URL url= getClass().getResource(fileName);
@@ -52,7 +43,7 @@ public class Parsing {
 	}
 	
 	public void parseString() {
-		String jsonStr=loadJSonResource("ex1.json");
+		String jsonStr=ExamplesCommon.loadJSonResource("ex1.json");
 		JSonElem json=null;
 		try {
 			json=JSonParser.parse(jsonStr);
