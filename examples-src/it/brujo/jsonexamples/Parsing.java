@@ -31,7 +31,7 @@ public class Parsing {
 		System.out.println("\n\n=================================\n\n");
 		p.parseStream();
 		System.out.println("\n\n=================================\n\n");
-//		p.parseStreamLarge();
+		p.parseStreamLarge();
 		System.out.println("\n\n=================================\n\n");
 		p.parsePerformance();
 	}
@@ -41,6 +41,7 @@ public class Parsing {
 		try {
 			return new String(Files.readAllBytes(Paths.get(url.toURI())),StandardCharsets.UTF_8);
 		} catch (IOException | URISyntaxException e1) {
+			e1.printStackTrace();
 			return null;
 		}
 	}

@@ -271,6 +271,9 @@ public class JSonBuilder {
 		else if (value instanceof JSonElem) {
 			return (JSonElem)value;
 		}
+		else if (value instanceof Enum<?>) {
+			return value((( Enum<?>)value).name());
+		}
 		else {
 			throw new IllegalArgumentException("unsupproted class "+value.getClass().getName());
 		}

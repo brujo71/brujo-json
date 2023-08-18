@@ -50,9 +50,9 @@ public class JSonArray extends JSonElem implements Iterable<JSonElem> {
 		return this;
 	}
 
-//	public JSonArray add(String s) {
-//		return add(new JSonString(s));
-//	}
+	public JSonArray add(Object value) {
+		return add(JSonBuilder.builder().elem(value));
+	}
 //
 //	public JSonArray add(Integer i) {
 //		return add(new JSonNumber(i));
