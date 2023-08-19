@@ -16,7 +16,7 @@ To compile the code Java 11+ is required.
 ## Documentation
 [javadoc](https://brujo.it/brujo-json/javadoc/)
 ## Examples
-comming soon (19 Agu 2023)
+coming soon (19 Agu 2023)
 
 
 
