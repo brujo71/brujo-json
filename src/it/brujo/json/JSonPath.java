@@ -1,11 +1,13 @@
 package it.brujo.json;
 
 import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /** A class to query map all the JSON value in a hierarchical map.
  * 
@@ -145,6 +147,30 @@ public class JSonPath {
 	 */
 	public static MapBuilder builder() {
 		return new MapBuilder();
+	}
+	
+	/** Merges each name with the current keyDelimiter.
+	 *  E.g.:
+	 *  <code><pre>
+	 *  	builder.keyOf(&quot;aaaa&quot;,&quot;bb&quot;,&quot;cc&quot; );
+	 *  </pre></coede>
+	 *  results in <code>aaaa_bb_cc</code>
+	 * 
+	 * @param names the parts of the key
+	 * @return a key 
+	 */
+	public String keyOf(String... names ) {
+		return rootName+keyDelimiter+Arrays.stream(names).collect(Collectors.joining(String.valueOf(keyDelimiter)));
+	}
+	
+	/** Extract the simple name from a composed key
+	 * 
+	 * @param key a key e.g. aaaa_bb_cc
+	 * @return the simple name e.g. cc
+	 */
+	public String simpleName(String key) {
+		int idx=key.lastIndexOf(keyDelimiter);
+		return idx>=0 && idx+1<key.length() ? key.substring(idx+1) : key;
 	}
 	
 	/** the configuration class

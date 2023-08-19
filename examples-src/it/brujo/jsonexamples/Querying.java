@@ -1,6 +1,7 @@
 package it.brujo.jsonexamples;
 
 import it.brujo.json.JSonElem;
+import it.brujo.json.JSonFormatter;
 import it.brujo.json.JSonParser;
 import it.brujo.json.JSonParser.JSonParseEx;
 import it.brujo.json.JSonPath;
@@ -32,13 +33,23 @@ public class Querying {
 				.withEnrollArrays(true)
 					.build(json);
 		
+
+		System.out.println(JSonFormatter.defaultFormatter().writeToString(json));
+		System.out.println("\n############");
 		path.dumpAll(System.out);
 
 		boolean servlet0useJSP=path.get("root.web-app.servlet.0.init-param.useJSP").asValue().booleanValue();
 		
-		String taglibLocation=path.get("root.web-app.taglib.taglib-location").asValue().stringValue();
+//		String taglibLocation=path.get("root.web-app.taglib.taglib-location").asValue().stringValue();
+		String taglibLocation=path.get(path.keyOf("web-app","taglib","taglib-location")).asValue().stringValue();
 		
+		System.out.println("############");
 		System.out.println("servlet0useJSP="+servlet0useJSP+" taglibLocation="+taglibLocation);
+		
+		System.out.println("############");
+		path.filter(".*servlet-name", (k,elem) -> {
+			System.out.println(path.simpleName(k)+": "+elem.asValue().stringValue());
+		});
 		
 	}
 }
