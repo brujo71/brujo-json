@@ -14,7 +14,7 @@ It does not support SAX style parsing. However, it will be added in the future.
 ## Requirements
 To compile the code Java 11+ is required.
 ## Documentation
-[javadoc](https://brujo.it/brujo-json/javadoc/)
+[javadoc](https://brujo.it/brujo-json/javadoc/){:target="_blank" rel="noopener"}
 ## Examples
 comming soon (19 Agu 2023)
 
