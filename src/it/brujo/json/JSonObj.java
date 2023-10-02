@@ -68,25 +68,11 @@ public class JSonObj extends JSonElem  {
 		return addInner(name, JSonBuilder.builder().elem(value));
 	}
 
-//	public JSonObj add(String name, String value) {
-//		return addInner(name, new JSonString(value));
-//	}
-//	
-//	public JSonObj add(String name, Number value) {
-//		return addInner(name, new JSonNumber(value));
-//	}
-//	
-//	public JSonObj add(String name, Boolean value) {
-//		if (value==null)
-//			return addInner(name, JSonConst.Null);
-//		return addInner(name, value ?  JSonConst.True : JSonConst.False );
-//	}
-
 	/**
 	 * 
 	 * @see #add(String,Object)
 	 * @param name JSON name
-	 * @param value any Java object that can be converted to JSON (e.g. String, Number)
+	 * @param value any JSON value 
 	 * @return <code>this</code>
 	 */
 	public JSonObj setValue(String name, JSonElem value) {

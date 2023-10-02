@@ -13,37 +13,6 @@ public abstract class JSonElem {
 	
 	abstract JSonElem myClone();
 	
-
-//	public Boolean toBoolValue() {
-//		if (this==JSonConst.Null) {
-//			return null;
-//		}
-//		else if (this==JSonConst.True) {
-//			return true;
-//		}
-//		else if (this==JSonConst.False) {
-//			return false;
-//		}
-//		else if (this instanceof JSonNumber) {
-//			return ((JSonNumber)this).longValue()!=0L;
-//		}
-//		else {
-//			throw new RuntimeException(""+toString());
-//		}
-//	}
-
-//	public void forEachObj(Consumer<JSonObj> cons) {
-//		if (this instanceof JSonObj) {
-//			cons.accept((JSonObj)this);
-//		}
-//		else if (this instanceof JSonArray) {
-//			((JSonArray)this).forEach(e -> e.forEachObj(cons));
-//		}
-//		else {
-//			throw new RuntimeException("unsupported class "+this.getClass().getName());
-//		}
-//	}
-	
 	/**
 	 * 
 	 * @return true if instanceof {@link JSonValue}
