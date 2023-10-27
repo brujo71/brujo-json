@@ -9,6 +9,8 @@ There are many JSON Java libraries available, so why choose this one? Here are s
 - **zero dependencies**. No other jar included.
 ## Who is this library for?
 This library is for anyone who wants to use a JSON library that does exactly what it is claimed to do. It is ideal for people who are learning about JSON or who want to customize the library to their own needs.
+## Support
+Feel free to contact me at [andrea@brujo.it](mailto:andrea@brujo.it)
 ## Limits
 It does not support SAX style parsing. However, it will be added in the future.
 ## Requirements
