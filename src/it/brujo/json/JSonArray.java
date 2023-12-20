@@ -53,16 +53,7 @@ public class JSonArray extends JSonElem implements Iterable<JSonElem> {
 	public JSonArray add(Object value) {
 		return add(JSonBuilder.builder().elem(value));
 	}
-//
-//	public JSonArray add(Integer i) {
-//		return add(new JSonNumber(i));
-//	}
-//
-//	public JSonArray add(Boolean value) {
-//		if (value==null)
-//			return add(JSonConst.Null);
-//		return add(value ?  JSonConst.True : JSonConst.False );
-//	}
+
 
 	/**
 	 * 
