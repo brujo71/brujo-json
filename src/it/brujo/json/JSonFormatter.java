@@ -253,6 +253,11 @@ public class JSonFormatter {
 				out.append("\\t");
 				len+=2;
 			}
+			else if (c<32) { //control chars
+				out.append("\\u");
+				String hex="000"+Integer.toHexString(c);
+				out.append(hex.substring(hex.length()-4));
+			}
 			else {
 				out.append(c);
 				len++;
