@@ -63,6 +63,8 @@ public class JSonFormatter {
 	}
 	
 	private void identation(int depth,int previousCharsNb) throws IOException {
+		if (conf.noSpaces)
+			return;
 		if (conf.useTabs) {
 			append.append("\t".repeat(depth*conf.identationNb));
 		}
@@ -83,7 +85,7 @@ public class JSonFormatter {
 		for (JSonElem e : el) {
 			if (!first) {
 				append.append(",");
-				if (alwaysNL || lineLen>80) {
+				if (!conf.noSpaces && ( alwaysNL || lineLen>80 )) {
 					append.append("\n");
 					identation(depth);
 					lineLen=0;
@@ -94,7 +96,6 @@ public class JSonFormatter {
 			}
 			write(e, lineLen==0 && !first ? depth : 0);
 			lineLen++;
-			//lineLen+=alwaysNL ? 1 : ((JSonValue)e).writeValue().length()+2;
 			first=false;
 		}
 		identation(1, 1);
@@ -105,7 +106,9 @@ public class JSonFormatter {
 		if (!first)
 			identation(depth);
 		append.append(escape(en.label().value()));
-		append.append(": ");
+		append.append(":");
+		if (!conf.noSpaces)	
+			append.append(" ");
 		write(en.value(), depth+1);
 	}
 
@@ -115,7 +118,10 @@ public class JSonFormatter {
 		boolean first=true;
 		for (JSonEntry nv: el.list()) {
 			if (!first) {
-				append.append(",\n");
+				if (conf.noSpaces)
+					append.append(",");					
+				else
+					append.append(",\n");
 			}
 			writeEntry(nv, depth+1, first);
 			first=false;
@@ -153,6 +159,7 @@ public class JSonFormatter {
 		
 		private boolean useTabs=false;
 		private int identationNb=4;
+		private boolean noSpaces;
 		
 		private FormatBuilder() {}
 		
@@ -163,6 +170,12 @@ public class JSonFormatter {
 		public JSonFormatter build() {
 			return new JSonFormatter(this);
 		}
+		
+		public FormatBuilder noSpaces() {
+			this.noSpaces=true;
+			return this;
+		}
+		
 		
 		/**Configure tabs vs. spaces
 		 * 
@@ -200,6 +213,8 @@ public class JSonFormatter {
 		public int getIdentationNb() {
 			return identationNb;
 		}
+		
+		
 		
 		
 	}
