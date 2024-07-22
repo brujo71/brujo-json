@@ -85,13 +85,15 @@ public class JSonFormatter {
 		for (JSonElem e : el) {
 			if (!first) {
 				append.append(",");
-				if (!conf.noSpaces && ( alwaysNL || lineLen>80 )) {
-					append.append("\n");
-					identation(depth);
-					lineLen=0;
-				}
-				else {
-					append.append(' ');
+				if (!conf.noSpaces) {
+					if ( alwaysNL || lineLen>80 ) {
+						append.append("\n");
+						identation(depth);
+						lineLen=0;
+					}
+					else {
+						append.append(' ');
+					}
 				}
 			}
 			write(e, lineLen==0 && !first ? depth : 0);
