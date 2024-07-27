@@ -1,5 +1,10 @@
 package it.brujo.json;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import java.util.Map;
 import java.util.Objects;
 
@@ -9,7 +14,9 @@ import java.util.Objects;
  */
 public class JSonBuilder {
 
-	private final static JSonBuilder builder=new JSonBuilder();
+	
+	private DateTimeFormatter dateFormat=DEFAULT_DATE_FORMATTER;
+	private DateTimeFormatter dateTimeFormat=DEFAULT_DATETIME_FORMATTER;
 	
 	private JSonBuilder() {	}
 	
@@ -238,6 +245,18 @@ public class JSonBuilder {
 		return value((double)value);
 	}
 	
+	public JSonValue value(LocalDate value) {
+		if (value==null)
+			return JSonConst.Null;
+		return new JSonString(value.format(dateFormat));
+	}
+	
+	public JSonValue value(LocalDateTime value) {
+		if (value==null)
+			return JSonConst.Null;
+		return new JSonString(value.format(dateTimeFormat));
+	}
+	
 	/**
 	 * 
 	 * @param value a {@link String} value
@@ -323,5 +342,29 @@ public class JSonBuilder {
 		return to;
 	}
 
+
+	public final static DateTimeFormatter DEFAULT_DATE_FORMATTER=
+			new DateTimeFormatterBuilder()
+			.appendValue(ChronoField.YEAR,4)
+			.appendLiteral('-')
+			.appendValue(ChronoField.MONTH_OF_YEAR,2)
+			.appendLiteral('-')
+			.appendValue(ChronoField.DAY_OF_MONTH,2)
+			.toFormatter();
+	public final static DateTimeFormatter DEFAULT_DATETIME_FORMATTER=
+			new DateTimeFormatterBuilder()
+			.appendValue(ChronoField.YEAR,4)
+			.appendLiteral('-')
+			.appendValue(ChronoField.MONTH_OF_YEAR,2)
+			.appendLiteral('-')
+			.appendValue(ChronoField.DAY_OF_MONTH,2)
+			.appendLiteral(' ')
+			.appendValue(ChronoField.HOUR_OF_DAY,2)
+			.appendLiteral(':')
+			.appendValue(ChronoField.MINUTE_OF_HOUR,2)
+			.appendLiteral(':')
+			.appendValue(ChronoField.SECOND_OF_MINUTE,2)
+			.toFormatter();
+	private final static JSonBuilder builder=new JSonBuilder();
 
 }

@@ -72,6 +72,21 @@ public class JSonExplorer {
 	 * @param name nome della proprietà a cui è associato il valore atteso
 	 * @return The Value a Integer
 	 */
+	public static String getObjValueString(JSonObj jsObj,String name) {
+		JSonElem elRes=jsObj.getElem(name);
+		if (elRes==null)
+			return null;
+		if (elRes instanceof JSonString)
+			return ((JSonString)elRes).stringValue();
+		throw new RuntimeException("unexpected type "+elRes.getClass().getSimpleName());
+	}
+
+	/**ritorna il valore della proprietà di un oggetto quanto si sa anticipatamente si tratta di numero (meglio se intero)
+	 * 
+	 * @param jsObj in intero (anche se il valore potrebbe essere un double)
+	 * @param name nome della proprietà a cui è associato il valore atteso
+	 * @return The Value a Integer
+	 */
 	public static Long getObjValueLong(JSonObj jsObj,String name) {
 		JSonElem elRes=jsObj.getElem(name);
 		if (elRes==null)
