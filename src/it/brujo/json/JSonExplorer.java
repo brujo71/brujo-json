@@ -70,6 +70,18 @@ public class JSonExplorer {
 	 * 
 	 * @param jsObj in intero (anche se il valore potrebbe essere un double)
 	 * @param name nome della proprietà a cui è associato il valore atteso
+	 * @param defaultValue the returned value  in case property is null or not present
+	 * @return The Value a Integer
+	 */
+	public static int getObjValueIntDef(JSonObj jsObj,String name,int defaultValue) {
+		Integer res=getObjValueInt(jsObj, name);
+		return res==null ? defaultValue : res;
+	}
+
+	/**ritorna il valore della proprietà di un oggetto quanto si sa anticipatamente si tratta di numero (meglio se intero)
+	 * 
+	 * @param jsObj in intero (anche se il valore potrebbe essere un double)
+	 * @param name nome della proprietà a cui è associato il valore atteso
 	 * @return The Value a Integer
 	 */
 	public static String getObjValueString(JSonObj jsObj,String name) {
@@ -94,6 +106,18 @@ public class JSonExplorer {
 		if (elRes instanceof JSonNumber)
 			return ((JSonNumber)elRes).longValue();
 		throw new RuntimeException("unexpected type "+elRes.getClass().getSimpleName());
+	}
+
+	/**ritorna il valore della proprietà di un oggetto quanto si sa anticipatamente si tratta di numero (meglio se intero)
+	 * 
+	 * @param jsObj in intero (anche se il valore potrebbe essere un double)
+	 * @param name nome della proprietà a cui è associato il valore atteso
+	 * @param defaultValue the returned value  in case property is null or not present
+	 * @return The Value a Integer
+	 */
+	public static long getObjValueLongDef(JSonObj jsObj, String name, long defaultValue) {
+		Long res=getObjValueLong(jsObj, name);
+		return res==null ? defaultValue : res;
 	}
 
 	/**Se un array è di tutti Obj, come spesso accade in strutture dati regolari, risparmio controlli e cast
