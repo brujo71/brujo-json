@@ -141,6 +141,10 @@ public class JSonObj extends JSonElem  {
 		content.forEach(cons);
 	}
 	
+	public void forEachLabel(Consumer<String> labelCons) {
+		forEachEntry(e -> labelCons.accept(e.label().value()));
+	}
+	
 	/**
 	 * 
 	 * @param from the obj from which to merge data

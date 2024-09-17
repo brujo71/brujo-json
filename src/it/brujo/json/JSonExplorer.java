@@ -1,6 +1,8 @@
 package it.brujo.json;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -50,6 +52,28 @@ public class JSonExplorer {
 			return (JSonArray)elRes;
 		throw new RuntimeException("unexpected type "+elRes.getClass().getSimpleName());
 	}
+	
+	public static List<Integer> array2ListInt(JSonArray jsArr) {
+		List<Integer> res=new ArrayList<>(jsArr.size());
+		jsArr.forEach(el -> res.add(el.asValue().intValue()));
+		return res;
+	}
+	
+	public static List<Long> array2ListLong(JSonArray jsArr) {
+		List<Long> res=new ArrayList<>(jsArr.size());
+		jsArr.forEach(el -> res.add(el.asValue().longValue()));
+		return res;
+	}
+	
+	public static List<String> array2ListString(JSonArray jsArr) {
+		List<String> res=new ArrayList<>(jsArr.size());
+		jsArr.forEach(el -> res.add(el.asValue().stringValue()));
+		return res;
+	}
+	
+
+	
+	
 	
 	/**ritorna il valore della proprietà di un oggetto quanto si sa anticipatamente si tratta di numero (meglio se intero)
 	 * 
@@ -118,6 +142,21 @@ public class JSonExplorer {
 	public static long getObjValueLongDef(JSonObj jsObj, String name, long defaultValue) {
 		Long res=getObjValueLong(jsObj, name);
 		return res==null ? defaultValue : res;
+	}
+
+	/**ritorna il valore della proprietà di un oggetto quanto si sa anticipatamente si tratta si un boolean.
+	 * 
+	 * @param jsObj in intero (anche se il valore potrebbe essere un double)
+	 * @param name nome della proprietà a cui è associato il valore atteso
+	 * @return The Value as boolean. Se non presente ritorna false
+	 */
+	public static Boolean getObjValueBool(JSonObj jsObj,String name) {
+		JSonElem elRes=jsObj.getElem(name);
+		if (elRes==null)
+			return null;
+		if (elRes instanceof JSonNumber)
+			return ((JSonNumber)elRes).booleanValue();
+		throw new RuntimeException("unexpected type "+elRes.getClass().getSimpleName());
 	}
 
 	/**Se un array è di tutti Obj, come spesso accade in strutture dati regolari, risparmio controlli e cast
