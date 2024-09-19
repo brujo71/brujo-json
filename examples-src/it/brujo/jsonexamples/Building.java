@@ -31,7 +31,7 @@ public class Building {
 		JSonObj ex=b.obj()
 				.add("testString", "hello")
 				.add("testInteger", 17)
-				.add("testArray", b.array("aa","bb",17,17.4).add(true))
+				.add("testArray", b.arrayOf("aa","bb",17,17.4).add(true))
 				.add("nested", b.obj(Map.of("one",1,"two",2,"three",3)))
 			;	
 		return ex;

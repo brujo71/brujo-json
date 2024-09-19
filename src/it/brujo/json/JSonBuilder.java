@@ -312,9 +312,17 @@ public class JSonBuilder {
 	 * @param els the elements of the array
 	 * @return the equivalent {@link JSonArray} 
 	 */
-	public JSonArray array(Object... els) {
+	public JSonArray arrayOf(Object... els) {
 		JSonArray res=new JSonArray();
 		for (Object o:els) {
+			res.add(elem(o));
+		}
+		return res;
+	}
+	
+	public<T> JSonArray arrayIter(Iterable<T> intArray) {
+		JSonArray res=new JSonArray();
+		for (T o: intArray) {
 			res.add(elem(o));
 		}
 		return res;
