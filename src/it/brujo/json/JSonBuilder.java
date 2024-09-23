@@ -321,6 +321,9 @@ public class JSonBuilder {
 	}
 	
 	public<T> JSonArray arrayIter(Iterable<T> intArray) {
+		if (intArray==null)
+			return null;
+		
 		JSonArray res=new JSonArray();
 		for (T o: intArray) {
 			res.add(elem(o));
