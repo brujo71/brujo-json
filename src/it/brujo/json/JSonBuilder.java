@@ -322,7 +322,7 @@ public class JSonBuilder {
 	
 	public<T> JSonArray arrayIter(Iterable<T> intArray) {
 		if (intArray==null)
-			return null;
+			throw new NullPointerException();
 		
 		JSonArray res=new JSonArray();
 		for (T o: intArray) {

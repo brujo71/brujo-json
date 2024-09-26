@@ -16,6 +16,9 @@ class JSonEntry {
 	 * @param value
 	 */
 	public JSonEntry(JSonLabel label, JSonElem value) {
+		if (value==null)
+			throw new NullPointerException();
+
 		this.label = label;
 		this.value = value;
 	}

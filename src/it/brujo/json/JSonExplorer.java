@@ -54,12 +54,16 @@ public class JSonExplorer {
 	}
 	
 	public static List<Integer> array2ListInt(JSonArray jsArr) {
+		if (jsArr==null)
+			return null; 
 		List<Integer> res=new ArrayList<>(jsArr.size());
 		jsArr.forEach(el -> res.add(el.asValue().intValue()));
 		return res;
 	}
 	
 	public static List<Long> array2ListLong(JSonArray jsArr) {
+		if (jsArr==null)
+			return null;
 		List<Long> res=new ArrayList<>(jsArr.size());
 		jsArr.forEach(el -> res.add(el.asValue().longValue()));
 		return res;
@@ -154,9 +158,19 @@ public class JSonExplorer {
 		JSonElem elRes=jsObj.getElem(name);
 		if (elRes==null)
 			return null;
-		if (elRes instanceof JSonNumber)
-			return ((JSonNumber)elRes).booleanValue();
+		if (elRes instanceof JSonConst) {
+			return elRes==JSonConst.Null ? null : ((JSonConst)elRes).booleanValue();
+		}
 		throw new RuntimeException("unexpected type "+elRes.getClass().getSimpleName());
+	}
+
+	public static boolean getObjValueBoolDef(JSonObj jsObj,String name,boolean defaultValue) {
+		Boolean res=getObjValueBool(jsObj, name);
+		return res==null ? defaultValue : res;
+	}
+
+	public static boolean getObjValueBoolFalse(JSonObj jsObj,String name) {
+		return getObjValueBoolDef(jsObj, name, false);
 	}
 
 	/**Se un array è di tutti Obj, come spesso accade in strutture dati regolari, risparmio controlli e cast

@@ -36,6 +36,8 @@ public class JSonObj extends JSonElem  {
 	}
 
 	JSonObj add(JSonEntry nv) {
+		if (nv==null)
+			throw new NullPointerException("nv cannot be null");
 		content.add(nv);
 		return this;
 	}

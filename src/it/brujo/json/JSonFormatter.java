@@ -44,6 +44,8 @@ public class JSonFormatter {
 	}
 
 	private void write(JSonElem el,int depth) throws IOException {
+		if (el==null)
+			throw new NullPointerException();
 		if (el instanceof JSonObj) {
 			writeObj((JSonObj)el, depth);
 		}
