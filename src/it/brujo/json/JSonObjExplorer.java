@@ -50,6 +50,23 @@ public class JSonObjExplorer {
 		return  LocalDate.from( dateFormat.parse(el.asValue().stringValue()) );
 	}
 	
+	public Long getLong(String name) {
+		JSonElem elRes=target.getElem(name);
+		if (elRes==null)
+			return null;
+		if (elRes instanceof JSonNumber)
+			return ((JSonNumber)elRes).longValue();
+		throw new RuntimeException("unexpected type "+elRes.getClass().getSimpleName());
+	}
+	
+	public Double getDouble(String name) {
+		JSonElem elRes=target.getElem(name);
+		if (elRes==null)
+			return null;
+		if (elRes instanceof JSonNumber)
+			return ((JSonNumber)elRes).doubleValue();
+		throw new RuntimeException("unexpected type "+elRes.getClass().getSimpleName());
+	}
 	
 	
 
