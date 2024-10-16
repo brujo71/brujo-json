@@ -3,6 +3,9 @@ package it.brujo.json;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.BiConsumer;
 
 public class JSonObjExplorer {
 	
@@ -68,6 +71,17 @@ public class JSonObjExplorer {
 		throw new RuntimeException("unexpected type "+elRes.getClass().getSimpleName());
 	}
 	
-	
+	public int size() {
+		return target.size();
+	}
 
+	public List<String> keys() {
+		final List<String> res=new ArrayList<String>(target.size());
+		target.list().forEach(e -> res.add(e.label().value()));
+		return res;
+	}
+	
+	public void elems(BiConsumer<String, JSonElem> dump) {
+		target.list().forEach(e -> dump.accept(e.label().value(), e.value()));
+	}
 }
