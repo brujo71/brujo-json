@@ -75,6 +75,7 @@ public class JSonParser {
 	
 	private static final Map<Character,Character> parseEscapedChars=Map.of(
 			'\\','\\',
+			'b','\b',
 			'r','\r',
 			'n','\n',
 			'f','\f',
